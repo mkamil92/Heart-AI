@@ -30,9 +30,9 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;ove
 .vb-caption{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;}
 .vb-caption span{color:var(--text);}
 .vb-controls{display:flex;gap:8px;flex-shrink:0;}
-.vb-btn{background:none;border:1px solid var(--border);border-radius:4px;color:var(--muted);font-size:11px;font-family:'Space Mono',monospace;padding:5px 10px;cursor:pointer;transition:all 0.2s;letter-spacing:1px;}
-.vb-btn:hover{border-color:var(--ecg);color:var(--ecg);}
-.vb-btn.active{border-color:var(--ecg);color:var(--ecg);background:rgba(0,229,255,0.08);}
+.vb-btn{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.15);border-radius:4px;color:#e2e8f0;font-size:11px;font-family:'Space Mono',monospace;padding:5px 10px;cursor:pointer;transition:all 0.2s;letter-spacing:1px;}
+.vb-btn:hover{border-color:var(--ecg);color:var(--ecg);background:rgba(0,229,255,0.08);}
+.vb-btn.active{border-color:var(--pcg);color:var(--pcg);background:rgba(255,107,53,0.1);}
 .vb-progress{position:absolute;top:0;left:0;height:1px;background:var(--ecg);transition:width 0.3s linear;width:0%;}
 
 /* SECTION INDICATOR */
