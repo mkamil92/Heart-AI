@@ -352,17 +352,71 @@ footer span{color:var(--ecg);}
   <canvas id="heartCanvas"></canvas>
   
 </div>
-  <div class="hero-content">
-    <h1>Detection of Subclinical RHD<br>in Children using Deep<br>Learning Algorithm</h1>
-    <p>A cross-modal deep learning framework that synchronizes ECG and PCG signals to identify Rheumatic Heart Disease in school-aged children — before symptoms appear, before valves are permanently damaged.</p>
-    <div class="stats-row">
-      <div class="fade-up"><div class="stat-num">100%</div><div class="stat-label">Sensitivity</div></div>
-      <div class="fade-up"><div class="stat-num">0·882</div><div class="stat-label">AUPRC</div></div>
-      <div class="fade-up"><div class="stat-num">612</div><div class="stat-label">Children Screened</div></div>
-      <div class="fade-up"><div class="stat-num">6</div><div class="stat-label">RHD Cases</div></div>
-    </div>
-    <button class="btn-run" onclick="document.getElementById('step1').scrollIntoView({behavior:'smooth'})">▶ EXPLORE Heart-AI</button>
+  <div class="hero-content" id="heroContent" style="opacity:0;transform:translateY(30px);transition:opacity 0.8s ease, transform 0.8s ease;">
+  
+  <!-- Animated tag line -->
+  <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(0,229,255,0.08);border:1px solid rgba(0,229,255,0.2);border-radius:20px;padding:6px 16px;margin-bottom:28px;">
+    <div style="width:6px;height:6px;border-radius:50%;background:#00e5ff;animation:pulse 1.5s ease-in-out infinite;"></div>
+    <span style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:#00e5ff;">DEEP LEARNING · CARDIAC SCREENING</span>
   </div>
+
+  <h1 style="opacity:0;transform:translateY(20px);transition:opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s;" id="heroH1">Detection of Subclinical RHD<br>in Children using Deep<br>Learning Algorithm</h1>
+
+  <p style="opacity:0;transform:translateY(20px);transition:opacity 0.7s ease 0.45s, transform 0.7s ease 0.45s;" id="heroP">
+    A cross-modal deep learning framework that synchronizes ECG and PCG signals to identify Rheumatic Heart Disease in school-aged children — before symptoms appear, before valves are permanently damaged.
+  </p>
+
+  <div class="stats-row" id="heroStats" style="opacity:0;transform:translateY(20px);transition:opacity 0.7s ease 0.65s, transform 0.7s ease 0.65s;">
+    <div style="text-align:center;">
+      <div class="stat-num" style="background:linear-gradient(135deg,#00e5ff,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">100%</div>
+      <div class="stat-label">Sensitivity</div>
+    </div>
+    <div style="text-align:center;">
+      <div class="stat-num" style="background:linear-gradient(135deg,#a78bfa,#ff6b35);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">0·882</div>
+      <div class="stat-label">AUPRC</div>
+    </div>
+    <div style="text-align:center;">
+      <div class="stat-num" style="background:linear-gradient(135deg,#00e5ff,#00f5a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">612</div>
+      <div class="stat-label">Children Screened</div>
+    </div>
+    <div style="text-align:center;">
+      <div class="stat-num" style="background:linear-gradient(135deg,#ff6b35,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">6</div>
+      <div class="stat-label">RHD Cases</div>
+    </div>
+  </div>
+
+  <div style="opacity:0;transform:translateY(20px);transition:opacity 0.7s ease 0.85s, transform 0.7s ease 0.85s;" id="heroBtn">
+    <button class="btn-run" onclick="document.getElementById('step1').scrollIntoView({behavior:'smooth'})" style="background:linear-gradient(135deg,#00e5ff,#a78bfa);color:#000;position:relative;overflow:hidden;" id="exploreBtn">
+      ▶ EXPLORE Heart-AI
+      <span style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.15),transparent);pointer-events:none;"></span>
+    </button>
+    <div style="font-size:11px;color:#1e3050;margin-top:12px;letter-spacing:2px;font-family:'Space Mono',monospace;">↓ SCROLL — VOICE FOLLOWS AUTOMATICALLY</div>
+  </div>
+
+</div>
+
+<style>
+@keyframes pulse{0%,100%{opacity:0.4;transform:scale(1)}50%{opacity:1;transform:scale(1.3)}}
+@keyframes btnShine{0%{left:-100%}100%{left:200%}}
+#exploreBtn:hover::before{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent);animation:btnShine 0.6s ease forwards;}
+</style>
+
+<script>
+// Trigger hero animation after overlay closes
+function triggerHeroAnimation() {
+  const hc = document.getElementById('heroContent');
+  const h1 = document.getElementById('heroH1');
+  const hp = document.getElementById('heroP');
+  const hs = document.getElementById('heroStats');
+  const hb = document.getElementById('heroBtn');
+  if(!hc) return;
+  setTimeout(()=>{ hc.style.opacity='1'; hc.style.transform='translateY(0)'; },100);
+  setTimeout(()=>{ h1.style.opacity='1'; h1.style.transform='translateY(0)'; },300);
+  setTimeout(()=>{ hp.style.opacity='1'; hp.style.transform='translateY(0)'; },500);
+  setTimeout(()=>{ hs.style.opacity='1'; hs.style.transform='translateY(0)'; },700);
+  setTimeout(()=>{ hb.style.opacity='1'; hb.style.transform='translateY(0)'; },900);
+}
+</script>
   <div class="scroll-hint">↓ SCROLL — VOICE FOLLOWS AUTOMATICALLY</div>
 </section>
 
@@ -792,6 +846,7 @@ function startExperience() {
     };
     loadVoices();
   }, 400);
+    triggerHeroAnimation(); // ← ADD THIS LINE
 }
 let currentUtterance = null;
 let currentSection = null;
