@@ -1314,10 +1314,10 @@ function setPatient(mode,btn){patientMode=mode;document.querySelectorAll('#step1
 
 function buildTable(){
   const models=[
-    {name:'XGBoost',best:true,recall:1.00,precision:0.67,f1:0.80,auprc:0.882},
+    {name:'XGBoost',best:false,recall:1.00,precision:0.67,f1:0.80,auprc:0.882},
     {name:'Logistic Regression',best:false,recall:1.00,precision:0.55,f1:0.71,auprc:0.660},
     {name:'Extra Trees',best:false,recall:1.00,precision:0.55,f1:0.71,auprc:0.609},
-    {name:'Balanced Random Forest',best:false,recall:0.83,precision:0.71,f1:0.77,auprc:0.830},
+    {name:'Balanced Random Forest',best:true,recall:0.83,precision:0.71,f1:0.77,auprc:0.830},
     {name:'Random Forest',best:false,recall:0.83,precision:0.62,f1:0.71,auprc:0.596},
   ];
   const tb=document.getElementById('resultsTableBody');if(!tb)return;
