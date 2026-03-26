@@ -273,8 +273,7 @@ footer span{color:var(--ecg);}
   <div style="position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(0,229,255,0.06) 0%,transparent 70%);pointer-events:none;animation:glowPulse 3s ease-in-out infinite;"></div>
 
   <!-- <!-- ECG line scrolling at bottom -->
-    <br>
-<div style="position:absolute;bottom:40px;left:0;right:0;height:70px;overflow:hidden;pointer-events:none;">
+<div style="position:absolute;bottom:0px;left:0;right:0;height:70px;overflow:hidden;pointer-events:none;">
   <!-- Glow layer -->
   <svg width="200%" height="70" style="position:absolute;top:0;left:0;animation:ecgMove 4s linear infinite;filter:blur(3px);opacity:0.15;" viewBox="0 0 1400 70" preserveAspectRatio="none">
     <polyline points="
@@ -324,8 +323,7 @@ footer span{color:var(--ecg);}
   </div> 
 
  <!-- Main content -->
-<div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center;padding:20px 24px;max-width:540px;width:100%;">
-
+<div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center;padding:20px 24px 80px;max-width:540px;width:100%;">
   <!-- Heart -->
   <div class="ov-i" style="font-size:52px;line-height:1;animation:overlayFadeUp 0.8s ease forwards,heartbeat 1.4s ease-in-out 1.5s infinite;animation-delay:0.1s,1.5s;">🫀</div>
 
