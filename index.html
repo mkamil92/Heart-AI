@@ -580,19 +580,19 @@ function triggerHeroAnimation() {
     <div class="pp-box">
       <div class="pp-title" style="color:var(--pcg)">PCG PREPROCESSING PIPELINE</div>
       <ul class="pp-list">
-        <li class="pp-item"><strong>Noise Reduction</strong> — removes environmental noise and stethoscope interference</li>
-        <li class="pp-item"><strong>Baseline Correction</strong> — removes slow signal drift hiding heart sound components</li>
-        <li class="pp-item"><strong>Artifact Suppression</strong> — filters movement and recording disturbances</li>
-        <li class="pp-item"><strong>Resampling</strong> — standardised to fixed sampling rate</li>
+        <li class="pp-item"><strong>Noise Reduction</strong> removes environmental noise and stethoscope interference</li>
+        <li class="pp-item"><strong>Baseline Correction</strong>  removes slow signal drift hiding heart sound components</li>
+        <li class="pp-item"><strong>Artifact Suppression</strong>  filters movement and recording disturbances</li>
+        <li class="pp-item"><strong>Resampling</strong>  standardised to fixed sampling rate</li>
       </ul>
     </div>
     <div class="pp-box">
       <div class="pp-title" style="color:var(--ecg)">ECG PREPROCESSING PIPELINE</div>
       <ul class="pp-list">
-        <li class="pp-item"><strong>Baseline Drift Removal</strong> — corrects low-frequency wander</li>
-        <li class="pp-item"><strong>Denoising</strong> — suppresses powerline and high-frequency noise</li>
-        <li class="pp-item"><strong>Resampling</strong> — matched to PCG sampling rate</li>
-        <li class="pp-item"><strong>Amplitude Normalisation</strong> — reduces inter-subject variation</li>
+        <li class="pp-item"><strong>Baseline Drift Removal</strong>  corrects low-frequency wander</li>
+        <li class="pp-item"><strong>Denoising</strong>  suppresses powerline and high-frequency noise</li>
+        <li class="pp-item"><strong>Resampling</strong>  matched to PCG sampling rate</li>
+        <li class="pp-item"><strong>Amplitude Normalisation</strong>  reduces inter-subject variation</li>
       </ul>
     </div>
   </div>
@@ -608,7 +608,91 @@ function triggerHeroAnimation() {
 
 <div class="divider"></div>
 
-<!-- STEP 3 -->
+  <!-- <!-- STEP 3 -->
+  <!-- STEP 3 -->
+<section class="section" id="step3" data-voice="step3">
+  <div class="step-label">Step 03 / 07</div>
+  <h2 class="section-title">Separate Vanilla Autoencoders</h2>
+  <p class="section-desc">Two separate <strong style="color:var(--text)">Vanilla Autoencoders</strong> — one for ECG, one for PCG — compress each clean signal into a compact <strong style="color:var(--sync)">64-dimensional bottleneck</strong>. Each autoencoder learns only what matters most in its own signal, discarding noise while preserving the cardiac patterns needed for synchronization and classification.</p>
+
+  <!-- ECG AE -->
+  <div style="margin-bottom:16px;">
+    <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--ecg);margin-bottom:10px;">ECG AUTOENCODER</div>
+    <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:8px;">
+      <div style="display:flex;align-items:center;min-width:480px;">
+        <div class="ae-block"><div class="ae-label" style="color:var(--ecg)">INPUT</div><div class="ae-dim" style="color:var(--ecg)">1000</div><div class="ae-sub">ECG samples</div></div>
+        <svg width="28" height="18" style="flex-shrink:0;padding:0 4px;"><path d="M2 9 L24 9 M17 3 L24 9 L17 15" stroke="#1e3050" stroke-width="1.5" fill="none"/></svg>
+        <div class="ae-block"><div class="ae-label">ENCODER</div><div class="ae-dim" style="color:var(--ecg)">↓</div><div class="ae-sub">compress</div></div>
+        <svg width="28" height="18" style="flex-shrink:0;padding:0 4px;"><path d="M2 9 L24 9 M17 3 L24 9 L17 15" stroke="#1e3050" stroke-width="1.5" fill="none"/></svg>
+        <div class="ae-block bottleneck"><div class="ae-label" style="color:var(--sync)">BOTTLENECK</div><div class="ae-dim" style="color:var(--sync)">64-dim</div><div class="ae-sub" style="color:var(--sync)">latent</div></div>
+        <svg width="28" height="18" style="flex-shrink:0;padding:0 4px;"><path d="M2 9 L24 9 M17 3 L24 9 L17 15" stroke="#1e3050" stroke-width="1.5" fill="none"/></svg>
+        <div class="ae-block"><div class="ae-label">DECODER</div><div class="ae-dim" style="color:var(--muted)">↑</div><div class="ae-sub">reconstruct</div></div>
+        <svg width="28" height="18" style="flex-shrink:0;padding:0 4px;"><path d="M2 9 L24 9 M17 3 L24 9 L17 15" stroke="#1e3050" stroke-width="1.5" fill="none"/></svg>
+        <div class="ae-block"><div class="ae-label" style="color:var(--ecg)">OUTPUT</div><div class="ae-dim" style="color:var(--ecg)">1000</div><div class="ae-sub">Reconstructed ECG</div></div>
+      </div>
+    </div>
+    <div style="font-size:10px;color:var(--muted);margin-top:4px;display:none;" id="swipeHintEcg">← swipe to see full diagram</div>
+  </div>
+
+  <!-- PCG AE -->
+  <div style="margin-bottom:24px;">
+    <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--pcg);margin-bottom:10px;">PCG AUTOENCODER</div>
+    <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:8px;">
+      <div style="display:flex;align-items:center;min-width:480px;">
+        <div class="ae-block"><div class="ae-label" style="color:var(--pcg)">INPUT</div><div class="ae-dim" style="color:var(--pcg)">1000</div><div class="ae-sub">PCG samples</div></div>
+        <svg width="28" height="18" style="flex-shrink:0;padding:0 4px;"><path d="M2 9 L24 9 M17 3 L24 9 L17 15" stroke="#1e3050" stroke-width="1.5" fill="none"/></svg>
+        <div class="ae-block"><div class="ae-label">ENCODER</div><div class="ae-dim" style="color:var(--pcg)">↓</div><div class="ae-sub">compress</div></div>
+        <svg width="28" height="18" style="flex-shrink:0;padding:0 4px;"><path d="M2 9 L24 9 M17 3 L24 9 L17 15" stroke="#1e3050" stroke-width="1.5" fill="none"/></svg>
+        <div class="ae-block bottleneck"><div class="ae-label" style="color:var(--sync)">BOTTLENECK</div><div class="ae-dim" style="color:var(--sync)">64-dim</div><div class="ae-sub" style="color:var(--sync)">latent</div></div>
+        <svg width="28" height="18" style="flex-shrink:0;padding:0 4px;"><path d="M2 9 L24 9 M17 3 L24 9 L17 15" stroke="#1e3050" stroke-width="1.5" fill="none"/></svg>
+        <div class="ae-block"><div class="ae-label">DECODER</div><div class="ae-dim" style="color:var(--muted)">↑</div><div class="ae-sub">reconstruct</div></div>
+        <svg width="28" height="18" style="flex-shrink:0;padding:0 4px;"><path d="M2 9 L24 9 M17 3 L24 9 L17 15" stroke="#1e3050" stroke-width="1.5" fill="none"/></svg>
+        <div class="ae-block"><div class="ae-label" style="color:var(--pcg)">OUTPUT</div><div class="ae-dim" style="color:var(--pcg)">1000</div><div class="ae-sub">Reconstructed PCG</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reconstruction canvases -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px;">
+    <div class="card">
+      <div class="card-top" style="background:var(--ecg)"></div>
+      <div class="card-label" style="color:var(--ecg);">ECG — Original vs Reconstructed</div>
+      <canvas id="reconEcg" height="80"></canvas>
+      <div style="display:flex;gap:16px;margin-top:8px;flex-wrap:wrap;">
+        <div style="font-size:11px;color:var(--muted)"><span style="color:var(--ecg)">━</span> Original</div>
+        <div style="font-size:11px;color:var(--muted)"><span style="color:rgba(0,229,255,0.35)">╌</span> Reconstructed</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-top" style="background:var(--pcg)"></div>
+      <div class="card-label" style="color:var(--pcg);">PCG — Original vs Reconstructed</div>
+      <canvas id="reconPcg" height="80"></canvas>
+      <div style="display:flex;gap:16px;margin-top:8px;flex-wrap:wrap;">
+        <div style="font-size:11px;color:var(--muted)"><span style="color:var(--pcg)">━</span> Original</div>
+        <div style="font-size:11px;color:var(--muted)"><span style="color:rgba(255,107,53,0.35)">╌</span> Reconstructed</div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<div class="divider"></div>
+
+<style>
+@media(max-width:600px){
+  /* Stack reconstruction cards */
+  #step3 .card:has(#reconEcg),
+  #step3 .card:has(#reconPcg){
+    grid-column: 1 / -1;
+  }
+  #step3 div[style*="grid-template-columns:1fr 1fr"]{
+    grid-template-columns:1fr !important;
+  }
+  /* Show swipe hint on mobile */
+  #swipeHintEcg{ display:block !important; }
+}
+</style>
+<!-- STEP 3
 <section class="section" id="step3" data-voice="step3">
   <div class="step-label">Step 03 / 07</div>
   <h2 class="section-title">Separate Vanilla Autoencoders</h2>
@@ -647,7 +731,7 @@ function triggerHeroAnimation() {
   </div>
 </section>
 
-<div class="divider"></div>
+<div class="divider"></div> -->
 
 <!-- STEP 4 -->
 <section class="section" id="step4" data-voice="step4">
